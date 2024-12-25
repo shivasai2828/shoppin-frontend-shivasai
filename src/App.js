@@ -1,11 +1,14 @@
-import logo from "./logo.svg";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import Home from "./pages/Home/Home";
 
 function App() {
   return (
-    <div>
-      <h1>hello i am shiva sai </h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/home" element={<Home />} />
+    </Routes>
   );
 }
 

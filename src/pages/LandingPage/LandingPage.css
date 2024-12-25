@@ -1,0 +1,48 @@
+.landing-page-bg {
+  width: 95%;
+  height: 100vh;
+  margin: 0 auto;
+}
+.landing-page-logo {
+  width: 100px;
+}
+.landing-page-logo-container {
+  margin: 25px 0;
+}
+.landing-page-content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.landing-page-main-content-container {
+  margin-top: 30px;
+}
+.landing-page-main-content-container p {
+  font-size: 27px;
+}
+.landing-page-main-content-container h1 {
+  font-size: 60px;
+  line-height: 60px;
+  margin: 10px 0;
+  font-weight: 500;
+}
+.landing-page-btn {
+  background-color: #0076df;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  font-size: 17px;
+  margin-top: 30px;
+}
+.band-icon-landing-page {
+  width: 60%;
+  position: relative;
+}
+.landing-page-watch {
+  width: 60%;
+  position: absolute;
+  top: 60%;
+}
