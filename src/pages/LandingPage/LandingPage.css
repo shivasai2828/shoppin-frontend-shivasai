@@ -35,7 +35,8 @@
   cursor: pointer;
   border: none;
   font-size: 17px;
-  margin-top: 30px;
+  margin: 20px 0;
+  z-index: 100;
 }
 .band-icon-landing-page {
   width: 60%;
@@ -44,5 +45,5 @@
 .landing-page-watch {
   width: 60%;
   position: absolute;
-  top: 60%;
+  top: 64%;
 }
