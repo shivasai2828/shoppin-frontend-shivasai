@@ -3,9 +3,63 @@ import "./Home.css";
 import { assets } from "./../../assets/assets";
 import { IoIosArrowDown } from "react-icons/io";
 import Model from "../../components/Model/Model";
+import Carousel from "./../../components/Carousel/Carousel";
+import BandCarousel from "../../components/BandCarousel/BandCarousel";
+let sizeImage = [
+  assets.sizwatch,
+  assets.sizwatch,
+  assets.sizwatch,
+  assets.sizwatch,
+  assets.sizwatch,
+  assets.sizwatch,
+];
+const caseImages = [
+  assets.caseimage3,
+  assets.caseimage2,
+  assets.caseimage1,
+  assets.caseimage4,
+  assets.caseimage5,
+  assets.caseimage6,
+];
+
+const bandimages = [
+  assets.watchband1,
+  assets.watchband2,
+  assets.watchband3,
+  assets.watchband4,
+  assets.watchband5,
+  assets.watchband6,
+  assets.watchband7,
+  assets.watchband8,
+  assets.watchband9,
+];
+
 const Home = () => {
   const [filteredOption, SetFilteredOption] = useState("");
   const [dropDownOpen, SetdropDownOpen] = useState(false);
+
+  const displayWatchesCarousels = () => {
+    if (filteredOption === "case") {
+      return <Carousel images={caseImages} />;
+    } else if (filteredOption === "band") {
+      return <BandCarousel images={bandimages} />;
+    } else {
+      return (
+        <>
+          <img
+            src={assets.watchband}
+            alt="band-icon"
+            className="band-icon-home-page"
+          />
+          <img
+            src={assets.landingPageWatch}
+            alt="landing-watch"
+            className="home-page-watch"
+          />
+        </>
+      );
+    }
+  };
 
   return (
     <div className="home-bg">
@@ -24,16 +78,7 @@ const Home = () => {
       </nav>
 
       <div className="home-center-content-container">
-        <img
-          src={assets.watchband}
-          alt="band-icon"
-          className="band-icon-home-page"
-        />
-        <img
-          src={assets.landingPageWatch}
-          alt="landing-watch"
-          className="home-page-watch"
-        />
+        {displayWatchesCarousels()}
         <div className="home-center-main-content">
           <p className="under-line-p">side view</p>
           <p className="home-center-second-para">APPLE WATCH SERIES 10</p>
