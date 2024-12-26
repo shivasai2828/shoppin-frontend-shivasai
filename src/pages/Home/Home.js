@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Home.css";
 import { assets } from "./../../assets/assets";
 import { IoIosArrowDown } from "react-icons/io";
-import Model from "../../components/Model/Model";
 import Carousel from "./../../components/Carousel/Carousel";
 import BandCarousel from "../../components/BandCarousel/BandCarousel";
-let sizeImage = [
-  assets.sizwatch,
-  assets.sizwatch,
-  assets.sizwatch,
-  assets.sizwatch,
-  assets.sizwatch,
-  assets.sizwatch,
-];
+import SizeCarousel from "./../../components/SizeCarousel/SizeCarousel";
+let sizeImage = [assets.sizwatch, assets.caseimage4];
+
 const caseImages = [
   assets.caseimage3,
   assets.caseimage2,
@@ -37,12 +31,47 @@ const bandimages = [
 const Home = () => {
   const [filteredOption, SetFilteredOption] = useState("");
   const [dropDownOpen, SetdropDownOpen] = useState(false);
+  const [sizeOption, SetSizeOption] = useState(0);
+  const [caseOption, SetcaseOption] = useState("aluminum");
+  const [bandOption, SetbandOption] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const popupRef = useRef(null); // Ref to track the popup element
 
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    // Cleanup the event listener on unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
   const displayWatchesCarousels = () => {
     if (filteredOption === "case") {
       return <Carousel images={caseImages} />;
     } else if (filteredOption === "band") {
       return <BandCarousel images={bandimages} />;
+    } else if (filteredOption === "size") {
+      return (
+        <SizeCarousel
+          SetSizeOption={SetSizeOption}
+          sizeOption={sizeOption}
+          images={sizeImage}
+        />
+      );
     } else {
       return (
         <>
@@ -63,20 +92,31 @@ const Home = () => {
 
   return (
     <div className="home-bg">
+      <img src={assets.logo} alt="nav-logo" className="nav-logo-mobile" />
+
       <nav className="nav-container">
         <img src={assets.logo} alt="nav-logo" className="nav-logo" />
         <div className="row drop-down-container ">
-          <p
-            className="nav-drop-down"
-            onClick={() => SetdropDownOpen(!dropDownOpen)}
-          >
+          <p className="nav-drop-down" onClick={togglePopup}>
             Collections{" "}
           </p>
           <IoIosArrowDown className="bottom-arrow-icon" />
         </div>
         <button className="nav-save-btn">save</button>
       </nav>
-
+      {isOpen && (
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className="popup"
+          ref={popupRef}
+        >
+          <ul className="popup-list">
+            <li className="popup-item">Apple Watch Series 10</li>
+            <li className="popup-item">Apple Watch Hermès Series 10</li>
+            <li className="popup-item">Apple Watch SE</li>
+          </ul>
+        </div>
+      )}
       <div className="home-center-content-container">
         {displayWatchesCarousels()}
         <div className="home-center-main-content">
@@ -95,8 +135,18 @@ const Home = () => {
             <img src={assets.sizeicon} alt="size-icon" />
             {filteredOption === "size" ? (
               <>
-                <p>42mm</p>
-                <p>46mm</p>
+                <p
+                  className={sizeOption === 0 ? "active-size-text" : ""}
+                  onClick={() => SetSizeOption(0)}
+                >
+                  42mm
+                </p>
+                <p
+                  className={sizeOption === 1 ? "active-size-text" : ""}
+                  onClick={() => SetSizeOption(1)}
+                >
+                  46mm
+                </p>
               </>
             ) : (
               "size"
@@ -109,8 +159,23 @@ const Home = () => {
             <img src={assets.caseicon} alt="case-icon" />{" "}
             {filteredOption === "case" ? (
               <>
-                <p> Aluminum</p>
-                <p>Titanium</p>
+                <p
+                  className={
+                    caseOption === "aluminum" ? "active-case-text" : ""
+                  }
+                  onClick={() => SetcaseOption("aluminum")}
+                >
+                  {" "}
+                  Aluminum
+                </p>
+                <p
+                  className={
+                    caseOption === "titanium" ? "active-case-text" : ""
+                  }
+                  onClick={() => SetcaseOption("titanium")}
+                >
+                  Titanium
+                </p>
               </>
             ) : (
               "Case"
@@ -136,7 +201,16 @@ const Home = () => {
                     "Sport",
                     "Band",
                   ].map((each, index) => {
-                    return <li>{each}</li>;
+                    return (
+                      <li
+                        className={
+                          bandOption === index ? "active-band-text" : ""
+                        }
+                        onClick={() => SetbandOption(index)}
+                      >
+                        {each}
+                      </li>
+                    );
                   })
                 : "Band"}
             </ul>

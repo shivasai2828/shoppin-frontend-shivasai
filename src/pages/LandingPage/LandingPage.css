@@ -47,3 +47,25 @@
   position: absolute;
   top: 64%;
 }
+@media screen and (max-width: 799px) {
+  .landing-page-main-content-container p {
+    font-size: 15px;
+  }
+  .landing-page-main-content-container h1 {
+    font-size: 28px;
+    line-height: 30px;
+    margin: 3px 0;
+    font-weight: 500;
+  }
+  .landing-page-btn {
+    margin: 7px 0;
+    font-size: 13px;
+  }
+  .landing-page-watch {
+    top: 50vh;
+    width: 100%;
+  }
+  .band-icon-landing-page {
+    width: 100%;
+  }
+}

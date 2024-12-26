@@ -16,6 +16,7 @@ code {
   margin: 0px;
   list-style-type: none;
   text-decoration: none;
+  scroll-behavior: smooth;
 }
 ::-webkit-scrollbar {
   display: none;

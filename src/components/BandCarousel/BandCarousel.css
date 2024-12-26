@@ -82,3 +82,12 @@
 .arrow.right-arrow {
   margin-left: 10px;
 }
+
+@media screen and (max-width: 799px) {
+  .carousel-watch-img {
+    width: 100%;
+  }
+  .band-icon-home-page {
+    width: 90%;
+  }
+}
