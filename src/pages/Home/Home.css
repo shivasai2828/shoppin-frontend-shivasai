@@ -243,3 +243,15 @@
   z-index: 99;
   /* display: ${({ isOpen }) => (isOpen ? "block" : "none")}; */
 }
+.home-page-watch,
+.band-icon-home-page {
+  transform: translateY(500px); /* Start position */
+  opacity: 0; /* Start with invisible */
+  transition: transform 4s ease, opacity 4s ease; /* Add animation */
+}
+
+/* Animate state */
+.animate {
+  transform: translateY(0); /* End position */
+  opacity: 1; /* Fully visible */
+}

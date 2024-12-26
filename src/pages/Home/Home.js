@@ -1,12 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Home.css";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
 import { assets } from "./../../assets/assets";
 import { IoIosArrowDown } from "react-icons/io";
 import Carousel from "./../../components/Carousel/Carousel";
 import BandCarousel from "../../components/BandCarousel/BandCarousel";
 import SizeCarousel from "./../../components/SizeCarousel/SizeCarousel";
+import { useNavigate } from "react-router-dom";
 let sizeImage = [assets.sizwatch, assets.caseimage4];
 
+gsap.registerPlugin(useGSAP);
 const caseImages = [
   assets.caseimage3,
   assets.caseimage2,
@@ -35,8 +40,31 @@ const Home = () => {
   const [caseOption, SetcaseOption] = useState("aluminum");
   const [bandOption, SetbandOption] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const popupRef = useRef(null); // Ref to track the popup element
+  const popupRef = useRef(null);
+  const [animate, setAnimate] = useState(false);
 
+  useEffect(() => {
+    // Trigger animation when the component is mounted
+    setAnimate(true);
+  }, []);
+  // useGSAP(() => {
+  //   gsap.from(
+  //     ".home-page-watch",
+  //     {
+  //       y: 500,
+  //       duration: 4,
+  //     },
+  //     "sametime"
+  //   );
+  //   gsap.from(
+  //     ".band-icon-home-page",
+  //     {
+  //       y: 500,
+  //       duration: 4,
+  //     },
+  //     "sametime"
+  //   );
+  // });
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
@@ -46,7 +74,7 @@ const Home = () => {
       setIsOpen(false);
     }
   };
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -54,7 +82,6 @@ const Home = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    // Cleanup the event listener on unmount
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -78,12 +105,12 @@ const Home = () => {
           <img
             src={assets.watchband}
             alt="band-icon"
-            className="band-icon-home-page"
+            className={`band-icon-home-page ${animate ? "animate" : ""}`}
           />
           <img
             src={assets.landingPageWatch}
             alt="landing-watch"
-            className="home-page-watch"
+            className={`home-page-watch ${animate ? "animate" : ""}`}
           />
         </>
       );
@@ -92,10 +119,20 @@ const Home = () => {
 
   return (
     <div className="home-bg">
-      <img src={assets.logo} alt="nav-logo" className="nav-logo-mobile" />
+      <img
+        src={assets.logo}
+        alt="nav-logo"
+        className="nav-logo-mobile"
+        onClick={() => navigate("/")}
+      />
 
       <nav className="nav-container">
-        <img src={assets.logo} alt="nav-logo" className="nav-logo" />
+        <img
+          src={assets.logo}
+          alt="nav-logo"
+          className="nav-logo"
+          onClick={() => navigate("/")}
+        />
         <div className="row drop-down-container ">
           <p className="nav-drop-down" onClick={togglePopup}>
             Collections{" "}
